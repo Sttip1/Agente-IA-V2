@@ -1,0 +1,9 @@
+{
+  "$schema": "https://opencode.ai/schema.json",
+  "permissions": {
+    "bash": "allow",
+    "edit": "allow",
+    "write": "allow",
+    "read": "allow"
+  }
+}

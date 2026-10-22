@@ -1,0 +1,52 @@
+{
+  "11111111-1": {
+    "rut": "11111111-1",
+    "nombre": "Juan Pérez Soto",
+    "motivo_consulta": "Dolor torácico agudo",
+    "prevision": "Fonasa A",
+    "prevision_activa": true,
+    "triage_revisado_por_clinico": true,
+    "documentos_presentados": [
+      "Cedula de identidad",
+      "Bono de urgencia"
+    ],
+    "esperado": "califica"
+  },
+  "22222222-2": {
+    "rut": "22222222-2",
+    "nombre": "María Gómez Ruiz",
+    "motivo_consulta": "Fiebre alta y cefalea",
+    "prevision": "Isapre Banmedica (Morosidad)",
+    "prevision_activa": false,
+    "triage_revisado_por_clinico": true,
+    "documentos_presentados": [
+      "Cedula de identidad"
+    ],
+    "esperado": "no_califica"
+  },
+  "33333333-3": {
+    "rut": "33333333-3",
+    "nombre": "Carlos Tapia Morales",
+    "motivo_consulta": "Traumatismo en extremidad inferior",
+    "prevision": "Isapre Colmena",
+    "prevision_activa": true,
+    "triage_revisado_por_clinico": true,
+    "documentos_presentados": [
+      "Certificado de afiliacion"
+    ],
+    "esperado": "falta_informacion"
+  },
+  "44444444-4": {
+    "rut": "44444444-4",
+    "nombre": "Ana Torres Silva",
+    "motivo_consulta": "Dificultad respiratoria leve",
+    "prevision": "Fonasa C",
+    "prevision_activa": true,
+    "triage_revisado_por_clinico": false,
+    "documentos_presentados": [
+      "Cedula de identidad",
+      "Bono institucional"
+    ],
+    "esperado": "no_califica"
+  }
+}

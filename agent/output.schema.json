@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OutputAgentP02",
+  "type": "object",
+  "properties": {
+    "estado": {
+      "type": "string",
+      "enum": [
+        "califica",
+        "no_califica",
+        "falta_informacion"
+      ],
+      "description": "Resultado de la verificación administrativa"
+    },
+    "explicacion": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Explicación detallada del estado asignado"
+    },
+    "antecedentes_faltantes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Lista de documentos o datos faltantes en caso de que falte información"
+    },
+    "reglas_aplicadas": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Lista de normativas o reglas administrativas aplicadas en la verificación"
+    }
+  },
+  "required": [
+    "estado",
+    "explicacion",
+    "antecedentes_faltantes",
+    "reglas_aplicadas"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "InputAgentP02",
+  "type": "object",
+  "properties": {
+    "rut": {
+      "type": "string",
+      "description": "RUT del paciente (ej: 11111111-1)"
+    },
+    "motivo_consulta": {
+      "type": "string",
+      "description": "Motivo de la consulta de urgencia"
+    },
+    "prevision": {
+      "type": "string",
+      "description": "Sistema de previsión de salud (Fonasa, Isapre, Particular, etc.)"
+    },
+    "triage_revisado_por_clinico": {
+      "type": "boolean",
+      "description": "Indica si el triage fue revisado y validado por personal clínico"
+    },
+    "documentos_presentados": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Lista de documentos presentados al ingreso (carnet, bono, certificado, etc.)"
+    }
+  },
+  "required": [
+    "rut",
+    "motivo_consulta",
+    "prevision",
+    "triage_revisado_por_clinico",
+    "documentos_presentados"
+  ]
+}

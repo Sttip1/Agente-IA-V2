@@ -1,0 +1,33 @@
+id: "P02"
+nombre: "Verificación administrativa de casos de urgencia"
+version: "0.1.0"
+grupo: "Grupo 6 - CINF110 (Agentes de IA)"
+institucion: "Clínica X"
+usuario_objetivo: "Administrativos de urgencias de la Clínica X"
+entradas:
+  - rut
+  - motivo_consulta
+  - prevision
+  - triage_revisado_por_clinico
+  - documentos_presentados
+salidas:
+  - estado
+  - explicacion
+  - antecedentes_faltantes
+  - reglas_aplicadas
+tools:
+  - consultar_antecedentes
+  - validar_ley_urgencia
+  - buscar_reglamento
+  - consultar_convenio
+skill:
+  - clasificar-antecedente-faltante
+limites:
+  - "NO diagnostica"
+  - "NO reclasifica triage"
+  - "NO aprueba cobros"
+  - "NO decide el ingreso final"
+estados_posibles:
+  - califica
+  - no_califica
+  - falta_informacion
