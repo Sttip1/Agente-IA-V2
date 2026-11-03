@@ -1,0 +1,7 @@
+{
+  "schema": "input",
+  "descripcion": "Falta el campo requerido 'mensaje'",
+  "dato": {
+    "session_id": "mesa-1"
+  }
+}

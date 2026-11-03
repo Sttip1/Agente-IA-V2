@@ -1,0 +1,9 @@
+{
+  "schema": "respuesta",
+  "descripcion": "Respuesta informativa que declara su base",
+  "dato": {
+    "tipo": "respuesta",
+    "base": "herramienta",
+    "texto": "Fonasa C: cobertura de urgencia 90% (servidor de convenios, simulado)."
+  }
+}

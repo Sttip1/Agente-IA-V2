@@ -1,0 +1,9 @@
+{
+  "schema": "respuesta",
+  "descripcion": "base fuera del enum",
+  "dato": {
+    "tipo": "respuesta",
+    "base": "intuicion",
+    "texto": "Creo que sí."
+  }
+}

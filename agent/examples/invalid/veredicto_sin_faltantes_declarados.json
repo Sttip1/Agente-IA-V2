@@ -1,0 +1,18 @@
+{
+  "schema": "veredicto",
+  "descripcion": "Regla condicional: si NO califica, debe listar faltantes",
+  "dato": {
+    "tipo": "veredicto",
+    "rut": "11111111-1",
+    "estado": "no_califica",
+    "explicacion": "Cumple las cinco reglas: previsión activa, triage revisado y documentos completos.",
+    "antecedentes_faltantes": [],
+    "reglas_aplicadas": [
+      "R1_RUT_VALIDO",
+      "R2_PREVISION_ACTIVA",
+      "R3_TRIAGE_CLINICO",
+      "R4_DOC_IDENTIDAD",
+      "R5_REGISTRO_COMPLETO"
+    ]
+  }
+}

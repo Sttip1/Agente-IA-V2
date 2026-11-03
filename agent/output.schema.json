@@ -1,0 +1,143 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SalidaAgenteP02",
+  "description": "Una salida final del agente es exactamente uno de los tipos definidos en $defs (campo 'tipo').",
+  "$defs": {
+    "veredicto": {
+      "type": "object",
+      "required": [
+        "tipo",
+        "rut",
+        "estado",
+        "explicacion",
+        "antecedentes_faltantes",
+        "reglas_aplicadas"
+      ],
+      "properties": {
+        "tipo": {
+          "type": "string",
+          "enum": [
+            "veredicto"
+          ]
+        },
+        "rut": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[0-9.]{7,10}-[0-9kK]$",
+          "description": "RUT del paciente evaluado."
+        },
+        "estado": {
+          "type": "string",
+          "enum": [
+            "califica",
+            "no_califica",
+            "falta_informacion"
+          ]
+        },
+        "explicacion": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 2000
+        },
+        "antecedentes_faltantes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reglas_aplicadas": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^R[0-9]+_[A-Z_]+$"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "estado": {
+                "const": "califica"
+              }
+            },
+            "required": [
+              "estado"
+            ]
+          },
+          "then": {
+            "properties": {
+              "antecedentes_faltantes": {
+                "maxItems": 0
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "antecedentes_faltantes": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "respuesta": {
+      "type": "object",
+      "required": [
+        "tipo",
+        "base",
+        "texto"
+      ],
+      "properties": {
+        "tipo": {
+          "type": "string",
+          "enum": [
+            "respuesta"
+          ]
+        },
+        "base": {
+          "type": "string",
+          "enum": [
+            "herramienta",
+            "memoria",
+            "aclaracion",
+            "saludo"
+          ],
+          "description": "De dónde sale el contenido: resultado de una herramienta de este turno, contexto de la sesión, pregunta de aclaración al usuario, o saludo."
+        },
+        "texto": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      }
+    },
+    "fuera_de_alcance": {
+      "type": "object",
+      "required": [
+        "tipo",
+        "texto",
+        "limite"
+      ],
+      "properties": {
+        "tipo": {
+          "type": "string",
+          "enum": [
+            "fuera_de_alcance"
+          ]
+        },
+        "texto": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "limite": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

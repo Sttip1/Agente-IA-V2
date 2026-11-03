@@ -1,0 +1,55 @@
+# Manifest declarativo del Agente P02. Lo carga harness/declarativo.py al iniciar.
+# Formato: YAML simple (clave: valor, listas con "- "). Comentarios solo en línea propia.
+id: P02
+nombre: Verificación administrativa de casos de urgencia
+version: 2.0.0
+grupo: Grupo 6 - CINF110 (Agentes de IA)
+institucion: Clínica X
+usuario_objetivo: Administrativos de urgencias de la Clínica X
+rol: "Agente de verificación administrativa: recibe una consulta del funcionario (RUT o pregunta) y entrega un veredicto estructurado; no clasifica clínicamente ni autoriza cobros."
+
+entradas:
+  - rut
+  - motivo_consulta
+  - prevision
+  - triage_revisado_por_clinico
+  - documentos_presentados
+
+salidas:
+  - veredicto
+  - respuesta
+  - fuera_de_alcance
+
+# Lista blanca: solo estas tools se le muestran al LLM. Cada una debe estar declarada en agent/tools.yaml.
+tools:
+  - consultar_registro
+  - evaluar_reglas
+  - buscar_reglamento
+  - consultar_convenio
+  - cargar_skill
+
+# Cada skill vive en agent/skills/<nombre>/SKILL.md con frontmatter name/description.
+skills:
+  - clasificar-antecedente-faltante
+  - responder-consulta-normativa
+
+# Skill que el agente debe cargar antes de un veredicto no_califica / falta_informacion.
+skill_para_faltantes: clasificar-antecedente-faltante
+
+limites:
+  - "NO diagnostica"
+  - "NO reclasifica triage"
+  - "NO aprueba cobros"
+  - "NO decide el ingreso final"
+  - "fuera de función"
+
+estados:
+  - califica
+  - no_califica
+  - falta_informacion
+
+# Parámetros de ejecución (opcionales; si faltan se usan los valores por defecto)
+max_pasos: 8
+max_formato: 3
+max_correcciones: 2
+ventana_mensajes: 30

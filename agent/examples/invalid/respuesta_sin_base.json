@@ -1,0 +1,8 @@
+{
+  "schema": "respuesta",
+  "descripcion": "Falta 'base': el LLM no declaró de dónde sale la respuesta",
+  "dato": {
+    "tipo": "respuesta",
+    "texto": "La colación es a las 13:00."
+  }
+}

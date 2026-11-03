@@ -1,0 +1,9 @@
+{
+  "schema": "fuera_de_alcance",
+  "descripcion": "Pedido fuera de la función del agente",
+  "dato": {
+    "tipo": "fuera_de_alcance",
+    "texto": "No puedo dar diagnósticos; sí puedo verificar los antecedentes administrativos.",
+    "limite": "NO diagnostica"
+  }
+}

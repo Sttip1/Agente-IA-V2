@@ -1,0 +1,136 @@
+# Herramientas del Agente P02 (declaración). harness/tool_registry.py las carga desde aquí:
+# el código NO tiene nombres, descripciones ni schemas de tools escritos a mano.
+#
+#   origin: local  -> la ejecuta el propio arnés (campo 'handler' = método en tool_registry.py)
+#   origin: mcp    -> la ejecuta un servidor MCP externo (stdio, JSON-RPC); el registro la descubre con tools/list
+#                     y comprueba que lo que el servidor publica coincida con esta declaración.
+#   permissions    -> límites de uso que el arnés hace cumplir antes de ejecutar.
+#   input_schema   -> JSON Schema de los argumentos; se valida ANTES de ejecutar y el error vuelve al LLM.
+#   output_schema  -> JSON Schema del resultado (documenta el contrato; los tests lo verifican).
+version: 1
+tools:
+  - name: consultar_registro
+    description: Devuelve los datos administrativos del paciente (previsión, triage, documentos) a partir de su RUT.
+    origin: local
+    handler: consultar_registro
+    permissions:
+      read_only: true
+      rut_must_come_from_user: true
+      data_sources:
+        - data/pacientes_simulados.json
+    input_schema:
+      type: object
+      required: [rut]
+      additionalProperties: false
+      properties:
+        rut:
+          type: string
+          minLength: 1
+          description: RUT del paciente (ej 11111111-1)
+    output_schema:
+      type: object
+      required: [estado]
+      properties:
+        estado:
+          type: string
+          enum: [encontrado, no_encontrado]
+
+  - name: evaluar_reglas
+    description: Evalúa las reglas de negocio R1..R5 sobre el registro del paciente y devuelve la evidencia regla por regla. OBLIGATORIA antes de dar un veredicto.
+    origin: local
+    handler: evaluar_reglas
+    permissions:
+      read_only: true
+      rut_must_come_from_user: true
+      data_sources:
+        - data/pacientes_simulados.json
+    input_schema:
+      type: object
+      required: [rut]
+      additionalProperties: false
+      properties:
+        rut:
+          type: string
+          minLength: 1
+          description: RUT del paciente
+    output_schema:
+      type: object
+      required: [rut, reglas]
+      properties:
+        rut:
+          type: string
+        reglas:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required: [id, cumple, evidencia]
+
+  - name: buscar_reglamento
+    description: Busca en el reglamento de Ley de Urgencia y el protocolo de admisión de la Clínica X (RAG). Úsala para cualquier pregunta normativa.
+    origin: local
+    handler: buscar_reglamento
+    permissions:
+      read_only: true
+      data_sources:
+        - data/documentos/
+    input_schema:
+      type: object
+      required: [consulta]
+      additionalProperties: false
+      properties:
+        consulta:
+          type: string
+          minLength: 1
+          description: tema a buscar
+    output_schema:
+      type: object
+      required: [estado]
+      properties:
+        estado:
+          type: string
+          enum: [encontrado, sin_resultados, sin_documentos]
+
+  - name: consultar_convenio
+    description: Consulta si una previsión tiene convenio vigente y su cobertura de urgencia (servidor MCP de convenios, datos simulados).
+    origin: mcp
+    server: python -m harness.mcp_server
+    permissions:
+      read_only: true
+      external_server: true
+    input_schema:
+      type: object
+      required: [prevision]
+      additionalProperties: false
+      properties:
+        prevision:
+          type: string
+          minLength: 1
+          description: nombre de la previsión (ej Fonasa C, Isapre Colmena)
+    output_schema:
+      type: object
+      required: [prevision, resultado]
+      properties:
+        resultado:
+          type: string
+          enum: [encontrado, ambiguo, no_encontrado]
+
+  - name: cargar_skill
+    description: Carga las instrucciones detalladas de una skill (procedimiento paso a paso).
+    origin: local
+    handler: cargar_skill
+    permissions:
+      read_only: true
+      data_sources:
+        - agent/skills/
+    input_schema:
+      type: object
+      required: [nombre]
+      additionalProperties: false
+      properties:
+        nombre:
+          type: string
+          minLength: 1
+          description: nombre de la skill
+    output_schema:
+      type: object

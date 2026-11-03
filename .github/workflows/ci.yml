@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  calidad-seguridad-pruebas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Lint (Ruff)
+        run: |
+          mkdir -p reports
+          ruff check . --output-format concise | tee reports/ruff.txt
+
+      - name: Seguridad (Bandit)
+        run: bandit -r harness app evals -c pyproject.toml -f txt -o reports/bandit.txt --severity-level medium --confidence-level medium
+
+      - name: Pruebas (pytest)
+        run: pytest --junitxml=reports/pytest.xml
+
+      - name: Evaluación automática (casos de evals/cases.jsonl, modo mock)
+        run: python -m evals.evaluator --modo mock --salida reports --min-pass 1.0
+
+      - name: Publicar reportes como artefacto
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reportes
+          path: reports/

@@ -1,0 +1,8 @@
+{
+  "schema": "input",
+  "descripcion": "Consulta con identificador de sesión",
+  "dato": {
+    "mensaje": "¿y qué le falta?",
+    "session_id": "mesa-1"
+  }
+}

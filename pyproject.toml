@@ -1,0 +1,28 @@
+[project]
+name = "agente-p02"
+version = "2.0.0"
+description = "Agente P02 - Verificación administrativa de casos de urgencia (Clínica X), CINF110"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 175
+target-version = "py310"
+extend-exclude = ["backup_v1", ".cache_rag", "logs"]
+
+[tool.ruff.lint]
+# E/F/W: errores y estilo básico; I: orden de imports; B: bugs probables; S: reglas de seguridad (subconjunto de Bandit)
+select = ["E", "F", "W", "I", "B", "S"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101", "S105", "S106", "S108", "E402", "S603", "S607"]
+"evals/*" = ["S101"]
+# rag.py: volcar() se invoca dentro de la misma iteración que define titulo/buf, por eso la clausura es segura.
+"harness/rag.py" = ["B023"]
+
+[tool.bandit]
+exclude_dirs = ["tests", ".venv", "backup_v1"]

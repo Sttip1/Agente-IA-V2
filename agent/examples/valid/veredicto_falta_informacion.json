@@ -1,0 +1,20 @@
+{
+  "schema": "veredicto",
+  "descripcion": "Falta un documento: lista antecedentes_faltantes",
+  "dato": {
+    "tipo": "veredicto",
+    "rut": "11111111-1",
+    "estado": "falta_informacion",
+    "explicacion": "Cumple las cinco reglas: previsión activa, triage revisado y documentos completos.",
+    "antecedentes_faltantes": [
+      "Cédula de identidad del paciente"
+    ],
+    "reglas_aplicadas": [
+      "R1_RUT_VALIDO",
+      "R2_PREVISION_ACTIVA",
+      "R3_TRIAGE_CLINICO",
+      "R4_DOC_IDENTIDAD",
+      "R5_REGISTRO_COMPLETO"
+    ]
+  }
+}

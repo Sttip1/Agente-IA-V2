@@ -1,0 +1,8 @@
+{
+  "schema": "input",
+  "descripcion": "additionalProperties=false rechaza campos desconocidos",
+  "dato": {
+    "mensaje": "hola",
+    "admin": true
+  }
+}

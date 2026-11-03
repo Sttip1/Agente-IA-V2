@@ -1,0 +1,7 @@
+{
+  "schema": "input",
+  "descripcion": "Consulta típica con un RUT",
+  "dato": {
+    "mensaje": "Dime si el paciente 11111111-1 es apto"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "schema": "input",
+  "descripcion": "session_id no cumple el patrón",
+  "dato": {
+    "mensaje": "hola",
+    "session_id": "mesa 1 !!"
+  }
+}

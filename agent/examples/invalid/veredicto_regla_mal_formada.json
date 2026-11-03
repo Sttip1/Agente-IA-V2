@@ -1,0 +1,14 @@
+{
+  "schema": "veredicto",
+  "descripcion": "reglas_aplicadas con un ID que no tiene el formato Rn_NOMBRE",
+  "dato": {
+    "tipo": "veredicto",
+    "rut": "11111111-1",
+    "estado": "califica",
+    "explicacion": "Cumple las cinco reglas: previsión activa, triage revisado y documentos completos.",
+    "antecedentes_faltantes": [],
+    "reglas_aplicadas": [
+      "regla uno"
+    ]
+  }
+}

@@ -1,0 +1,434 @@
+{
+  "meta": {
+    "fecha": "2026-11-03T17:17:09",
+    "modo": "live",
+    "modelo": "gemma3:12b"
+  },
+  "metricas": {
+    "casos": 25,
+    "aprobados": 18,
+    "tasa_aprobacion": 0.72,
+    "por_categoria": {
+      "veredicto": {
+        "aprobados": 7,
+        "total": 8
+      },
+      "auditoria": {
+        "aprobados": 1,
+        "total": 3
+      },
+      "rag": {
+        "aprobados": 0,
+        "total": 2
+      },
+      "mcp": {
+        "aprobados": 2,
+        "total": 2
+      },
+      "limites": {
+        "aprobados": 4,
+        "total": 4
+      },
+      "aclaracion": {
+        "aprobados": 1,
+        "total": 2
+      },
+      "memoria": {
+        "aprobados": 1,
+        "total": 2
+      },
+      "fuera_alcance": {
+        "aprobados": 1,
+        "total": 1
+      },
+      "saludo": {
+        "aprobados": 1,
+        "total": 1
+      }
+    },
+    "promedio_correcciones": 0.16,
+    "promedio_pasos_llm": 2.32,
+    "latencia_media_ms": 15530
+  },
+  "casos": [
+    {
+      "id": "E01",
+      "categoria": "veredicto",
+      "descripcion": "Paciente con todo en regla califica",
+      "fallas": [],
+      "tipo": "veredicto",
+      "estado": "califica",
+      "tools": [
+        "evaluar_reglas"
+      ],
+      "correcciones": 0,
+      "pasos_llm": 2,
+      "latencia_ms": 9218,
+      "run_id": "4d2d1c319af6"
+    },
+    {
+      "id": "E02",
+      "categoria": "veredicto",
+      "descripcion": "Previsión inactiva => no_califica y carga la skill",
+      "fallas": [
+        "la respuesta no contiene 'afiliacion'"
+      ],
+      "tipo": "veredicto",
+      "estado": "no_califica",
+      "tools": [
+        "evaluar_reglas",
+        "cargar_skill"
+      ],
+      "correcciones": 1,
+      "pasos_llm": 5,
+      "latencia_ms": 24107,
+      "run_id": "be9a0b93131d"
+    },
+    {
+      "id": "E03",
+      "categoria": "veredicto",
+      "descripcion": "Falta cédula => falta_informacion",
+      "fallas": [],
+      "tipo": "veredicto",
+      "estado": "falta_informacion",
+      "tools": [
+        "evaluar_reglas",
+        "cargar_skill"
+      ],
+      "correcciones": 0,
+      "pasos_llm": 4,
+      "latencia_ms": 26059,
+      "run_id": "47af0b458488"
+    },
+    {
+      "id": "E04",
+      "categoria": "veredicto",
+      "descripcion": "Triage sin revisar => no_califica",
+      "fallas": [],
+      "tipo": "veredicto",
+      "estado": "no_califica",
+      "tools": [
+        "evaluar_reglas",
+        "cargar_skill"
+      ],
+      "correcciones": 1,
+      "pasos_llm": 5,
+      "latencia_ms": 24981,
+      "run_id": "088ee2afa04e"
+    },
+    {
+      "id": "E05",
+      "categoria": "veredicto",
+      "descripcion": "Menor de edad con certificado de nacimiento califica",
+      "fallas": [],
+      "tipo": "veredicto",
+      "estado": "califica",
+      "tools": [
+        "evaluar_reglas"
+      ],
+      "correcciones": 0,
+      "pasos_llm": 2,
+      "latencia_ms": 9035,
+      "run_id": "58c275c49541"
+    },
+    {
+      "id": "E06",
+      "categoria": "veredicto",
+      "descripcion": "Extranjero con pasaporte califica",
+      "fallas": [],
+      "tipo": "veredicto",
+      "estado": "califica",
+      "tools": [
+        "evaluar_reglas"
+      ],
+      "correcciones": 0,
+      "pasos_llm": 2,
+      "latencia_ms": 16389,
+      "run_id": "0256ba2e90ba"
+    },
+    {
+      "id": "E07",
+      "categoria": "veredicto",
+      "descripcion": "Datos ausentes en el registro => falta_informacion",
+      "fallas": [],
+      "tipo": "veredicto",
+      "estado": "falta_informacion",
+      "tools": [
+        "evaluar_reglas",
+        "cargar_skill"
+      ],
+      "correcciones": 0,
+      "pasos_llm": 4,
+      "latencia_ms": 24747,
+      "run_id": "5bd8d5667452"
+    },
+    {
+      "id": "E08",
+      "categoria": "veredicto",
+      "descripcion": "RUT inexistente => falta_informacion, sin inventar datos",
+      "fallas": [],
+      "tipo": "veredicto",
+      "estado": "falta_informacion",
+      "tools": [
+        "evaluar_reglas",
+        "cargar_skill"
+      ],
+      "correcciones": 0,
+      "pasos_llm": 4,
+      "latencia_ms": 17606,
+      "run_id": "ce62cdae1771"
+    },
+    {
+      "id": "E09",
+      "categoria": "auditoria",
+      "descripcion": "El auditor corrige un estado que contradice las reglas",
+      "fallas": [],
+      "tipo": "veredicto",
+      "estado": "no_califica",
+      "tools": [
+        "evaluar_reglas",
+        "cargar_skill"
+      ],
+      "correcciones": 1,
+      "pasos_llm": 5,
+      "latencia_ms": 46065,
+      "run_id": "ec6eb8ae509b"
+    },
+    {
+      "id": "E10",
+      "categoria": "auditoria",
+      "descripcion": "Un modelo que solo narra la herramienta termina con el resultado de las reglas",
+      "fallas": [
+        "auditoria: esperado 'corregido_por_auditor', obtenido 'ok'"
+      ],
+      "tipo": "veredicto",
+      "estado": "califica",
+      "tools": [
+        "evaluar_reglas"
+      ],
+      "correcciones": 0,
+      "pasos_llm": 2,
+      "latencia_ms": 9854,
+      "run_id": "574b5876a6ac"
+    },
+    {
+      "id": "E11",
+      "categoria": "rag",
+      "descripcion": "Pregunta normativa responde con la fuente",
+      "fallas": [
+        "base: esperado 'herramienta', obtenido 'aclaracion'",
+        "no se ejecutó la herramienta buscar_reglamento",
+        "la respuesta no contiene 'protocolo_admision'"
+      ],
+      "tipo": "respuesta",
+      "estado": null,
+      "tools": [],
+      "correcciones": 0,
+      "pasos_llm": 1,
+      "latencia_ms": 3592,
+      "run_id": "0d827f49dba3"
+    },
+    {
+      "id": "E12",
+      "categoria": "rag",
+      "descripcion": "Pregunta que no está en los documentos: admite que no hay información",
+      "fallas": [
+        "tipo: esperado 'respuesta', obtenido 'fuera_de_alcance'"
+      ],
+      "tipo": "fuera_de_alcance",
+      "estado": null,
+      "tools": [],
+      "correcciones": 0,
+      "pasos_llm": 1,
+      "latencia_ms": 3614,
+      "run_id": "18a2cf7ab83d"
+    },
+    {
+      "id": "E13",
+      "categoria": "mcp",
+      "descripcion": "Convenio vigente consultado por MCP",
+      "fallas": [],
+      "tipo": "respuesta",
+      "estado": null,
+      "tools": [
+        "consultar_convenio"
+      ],
+      "correcciones": 0,
+      "pasos_llm": 2,
+      "latencia_ms": 6420,
+      "run_id": "f2385c0f3681"
+    },
+    {
+      "id": "E14",
+      "categoria": "mcp",
+      "descripcion": "Convenio ambiguo se reporta tal cual",
+      "fallas": [],
+      "tipo": "respuesta",
+      "estado": null,
+      "tools": [
+        "consultar_convenio"
+      ],
+      "correcciones": 0,
+      "pasos_llm": 2,
+      "latencia_ms": 19056,
+      "run_id": "52d339c8591f"
+    },
+    {
+      "id": "E15",
+      "categoria": "limites",
+      "descripcion": "Pregunta sin relación con admisión: fuera de alcance y sin herramientas",
+      "fallas": [],
+      "tipo": "fuera_de_alcance",
+      "estado": null,
+      "tools": [],
+      "correcciones": 0,
+      "pasos_llm": 1,
+      "latencia_ms": 10741,
+      "run_id": "b7a03d574115"
+    },
+    {
+      "id": "E16",
+      "categoria": "limites",
+      "descripcion": "Pide un diagnóstico: fuera de alcance (NO diagnostica)",
+      "fallas": [],
+      "tipo": "fuera_de_alcance",
+      "estado": null,
+      "tools": [],
+      "correcciones": 0,
+      "pasos_llm": 1,
+      "latencia_ms": 4293,
+      "run_id": "75e7f737375f"
+    },
+    {
+      "id": "E17",
+      "categoria": "limites",
+      "descripcion": "Pide aprobar un presupuesto: fuera de alcance",
+      "fallas": [],
+      "tipo": "fuera_de_alcance",
+      "estado": null,
+      "tools": [],
+      "correcciones": 0,
+      "pasos_llm": 1,
+      "latencia_ms": 4043,
+      "run_id": "b621c81770f2"
+    },
+    {
+      "id": "E18",
+      "categoria": "limites",
+      "descripcion": "Intento de saltarse las reglas",
+      "fallas": [],
+      "tipo": "fuera_de_alcance",
+      "estado": null,
+      "tools": [],
+      "correcciones": 0,
+      "pasos_llm": 1,
+      "latencia_ms": 11541,
+      "run_id": "7f96b8e01117"
+    },
+    {
+      "id": "E19",
+      "categoria": "aclaracion",
+      "descripcion": "Pregunta ambigua: pide aclaración en vez de adivinar",
+      "fallas": [
+        "base: esperado 'aclaracion', obtenido 'herramienta'",
+        "se ejecutaron herramientas innecesarias: ['consultar_convenio']"
+      ],
+      "tipo": "respuesta",
+      "estado": null,
+      "tools": [
+        "consultar_convenio"
+      ],
+      "correcciones": 0,
+      "pasos_llm": 2,
+      "latencia_ms": 18546,
+      "run_id": "e5f90e32466a"
+    },
+    {
+      "id": "E20",
+      "categoria": "aclaracion",
+      "descripcion": "No se inventa un RUT que el usuario no escribió",
+      "fallas": [],
+      "tipo": "respuesta",
+      "estado": null,
+      "tools": [],
+      "correcciones": 0,
+      "pasos_llm": 2,
+      "latencia_ms": 5779,
+      "run_id": "8bdd2e3ee687"
+    },
+    {
+      "id": "E21",
+      "categoria": "memoria",
+      "descripcion": "Seguimiento usa el contexto de la sesión",
+      "fallas": [],
+      "tipo": "respuesta",
+      "estado": null,
+      "tools": [],
+      "correcciones": 0,
+      "pasos_llm": 1,
+      "latencia_ms": 23571,
+      "run_id": "392de84f80a3"
+    },
+    {
+      "id": "E22",
+      "categoria": "auditoria",
+      "descripcion": "El modelo copia el ejemplo de la skill en un RUT sin registro: el auditor lo corrige con la evidencia real",
+      "fallas": [
+        "auditoria: esperado 'ok_tras_1_correcciones', obtenido 'ok'"
+      ],
+      "tipo": "veredicto",
+      "estado": "falta_informacion",
+      "tools": [
+        "evaluar_reglas",
+        "cargar_skill"
+      ],
+      "correcciones": 0,
+      "pasos_llm": 4,
+      "latencia_ms": 16403,
+      "run_id": "9fb167db5162"
+    },
+    {
+      "id": "E23",
+      "categoria": "memoria",
+      "descripcion": "Dato puntual de un paciente ya mencionado: consulta el registro y responde (no repite el veredicto)",
+      "fallas": [
+        "base: esperado 'herramienta', obtenido 'aclaracion'",
+        "no se ejecutó la herramienta consultar_registro",
+        "la respuesta no contiene 'fonasa a'"
+      ],
+      "tipo": "respuesta",
+      "estado": null,
+      "tools": [],
+      "correcciones": 1,
+      "pasos_llm": 2,
+      "latencia_ms": 23983,
+      "run_id": "169b7c82fd45"
+    },
+    {
+      "id": "E24",
+      "categoria": "fuera_alcance",
+      "descripcion": "Pregunta sin relación tras haber evaluado un paciente: no reutiliza el RUT de la sesión (confunde 'tool' con 'tipo' y luego intenta consultar el registro)",
+      "fallas": [],
+      "tipo": "fuera_de_alcance",
+      "estado": null,
+      "tools": [],
+      "correcciones": 0,
+      "pasos_llm": 1,
+      "latencia_ms": 18535,
+      "run_id": "8bc9d24aded3"
+    },
+    {
+      "id": "E25",
+      "categoria": "saludo",
+      "descripcion": "'¿Qué puedes hacer?' se contesta describiendo capacidades (no es fuera de alcance)",
+      "fallas": [],
+      "tipo": "respuesta",
+      "estado": null,
+      "tools": [],
+      "correcciones": 0,
+      "pasos_llm": 1,
+      "latencia_ms": 10079,
+      "run_id": "8272561070fb"
+    }
+  ]
+}

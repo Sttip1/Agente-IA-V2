@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EntradaAgenteP02",
+  "description": "Cuerpo de una consulta al agente (POST /run o una línea del chat). Se valida ANTES de llamar al LLM.",
+  "type": "object",
+  "required": [
+    "mensaje"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "mensaje": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 1000,
+      "description": "Consulta del funcionario administrativo (puede incluir un RUT)."
+    },
+    "session_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{1,64}$",
+      "description": "Identificador opcional de la conversación; mantiene la memoria entre consultas."
+    }
+  }
+}
